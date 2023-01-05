@@ -1,0 +1,42 @@
+@import '../../main.scss';
+
+.note-list-main-container {
+    display: flex;
+    flex-direction: row;
+    padding: 3rem;
+    .note-list-container {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    
+        .note-cards {
+            margin: 1rem;
+            padding: 0 1rem;
+            max-height: 32rem;
+            overflow-y: auto;
+        }
+    
+        .search-add-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+    
+            .field {
+                margin-bottom: 0;
+            }
+    
+            .add-button {
+                background-color: #a59ad7;
+                border-color: transparent;
+                color: #fff;
+                box-shadow: 0px 0px 15px 5px rgba($color: $purple, $alpha: 0.2);
+                cursor: pointer;
+            }
+        }
+    
+    
+    }
+    .note-add-edit-main-container {
+        width: 70%;
+    }
+}

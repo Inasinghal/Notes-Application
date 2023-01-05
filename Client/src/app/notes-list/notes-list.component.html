@@ -1,0 +1,22 @@
+<div class="note-list-main-container">
+  <div class="note-list-container">
+    <div class="search-add-container">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" [(ngModel)]="searchInput" type="input" placeholder="Filter">
+          <span class="icon is-small is-left">
+            <i class="fa fa-search"></i>
+          </span>
+        </p>
+      </div>
+      <button class="add-button icon is-primary" routerLink="/new"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="note-cards">
+      <app-note-card *ngFor="let note of (notes | searchNote : searchInput)" [note]="note" (deleteNoteEvent)="deleteNote($event)">
+      </app-note-card>
+    </div>
+  </div>
+  <div class="note-add-edit-main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

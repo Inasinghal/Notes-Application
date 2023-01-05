@@ -1,0 +1,37 @@
+<div class="add-edit-main-container">
+    <form *ngIf="note " #noteForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">#Title</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <input class="input" name="title" [(ngModel)]="note.title" required type="text">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                        <textarea class="textarea" rows="15" name="body" [(ngModel)]="note.body" required type="textarea"></textarea>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="field is-grouped is-grouped-right">
+            <p class="control">
+                <button type="submit" [disabled]="noteForm.invalid" class="button is-primary">
+                    <span class="icon-text">
+                        <span>Save</span>
+                        <span class="icon">
+                          <i class="fa fa-save"></i>
+                        </span>
+                      </span> 
+                </button>
+            </p>
+        </div>
+    </form>
+</div>
