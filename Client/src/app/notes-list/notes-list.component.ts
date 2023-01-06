@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Note } from 'src/shared/note.model';
 import { NotesService } from 'src/shared/notes.service';
 
@@ -11,10 +12,14 @@ export class NotesListComponent implements OnInit {
   searchInput: string = "";
   notes: Note[] = new Array<Note>();
 
-  constructor(private notesService: NotesService) { }
+  constructor(private notesService: NotesService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getAllNotes();
+    this.notesService.refreshGridSubject$.subscribe(res => {
+      this.getAllNotes();
+      this.router.navigate(['/new']);
+    });
   }
 
   getAllNotes() {

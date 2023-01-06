@@ -2,7 +2,8 @@ var Notes = require('./notes.model');
 
 exports.createNote = function (req, res) {
     var note = {
-        body: req.body.body
+        body: req.body.body,
+        title: req.body.title
     };
 
     Notes.create(note, function (err, note) {
@@ -44,7 +45,8 @@ exports.getNote = function (req, res) {
 
 exports.updateNote = function (req, res) {
     var note = {
-        body: req.body.body
+        body: req.body.body,
+        title: req.body.title
     }
     Notes.findOneAndUpdate({ _id: req.params.id }, note, { new: true }, function (err, note) {
         if (err) {

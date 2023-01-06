@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Note } from './note.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -9,7 +9,15 @@ import { catchError } from 'rxjs/operators';
 })
 export class NotesService {
   configUrl = 'http://localhost:4000/api';
+  private refreshGridSubject = new BehaviorSubject(true);
+  refreshGridSubject$ = this.refreshGridSubject.asObservable();
+
   constructor(private http: HttpClient) { }
+
+
+  refreshGrid() {
+    this.refreshGridSubject.next(true);
+  }
 
   getAll(): Observable<Note[]> {
     return this.http.get<Note[]>(`${this.configUrl}/getNotes`).pipe(catchError(this.handleError));

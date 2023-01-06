@@ -11,6 +11,7 @@ $pink: #FE76C2;
 $blue: #37C7F2;
 
 $light-red: #FFF3F3;
+$dark-red: #ff3b3b;
 $light: #fbfbfb;
 
 // Update Bulma's global variables
@@ -49,4 +50,4 @@ height: 100%;
 
 ::-webkit-scrollbar {background-color:$light;width: 8px;}
 ::-webkit-scrollbar-track {background-color:$light}
-::-webkit-scrollbar-thumb {background-image: linear-gradient(to bottom,$pink,$blue);border-radius:8px}
+::-webkit-scrollbar-thumb {background-color: #a59ad7;border-radius:8px}

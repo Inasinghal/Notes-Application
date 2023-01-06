@@ -1,14 +1,14 @@
-<div class="note-card-container">
-    <a [routerLink]="['/',note._id]">
-        <div class="note-card-content">
-            <div class="note-card-header">
-                <h1>{{ note.title }}</h1>
-            </div>
-            <div #cardBody class="note-card-body">
-                <p #cardContent>{{ note.body }}</p>
-                <div *ngIf="cardContent.clientHeight > cardBody.clientHeight" class="fade-out-content"></div>
-            </div>
+<div class="note-card-container" [routerLink]="['/',note._id]" routerLinkActive="active">
+    <div class="note-card-content">
+        <div class="note-card-header">
+            <h1>{{ note.title }}</h1>
         </div>
-    </a>
-    <div class="x-button" (click)="deleteNote()"></div>
+        <div #cardBody class="note-card-body">
+            <p #cardContent>{{ note.body }}</p>
+            <div *ngIf="cardContent.clientHeight > cardBody.clientHeight" class="fade-out-content"></div>
+        </div>
+    </div>
+    <div class="x-button icon" (click)="deleteNote()">
+        <i class="fa fa-trash"></i>
+    </div>
 </div>

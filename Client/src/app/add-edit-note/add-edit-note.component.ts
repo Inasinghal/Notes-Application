@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/shared/note.model';
 import { NotesService } from 'src/shared/notes.service';
 
@@ -11,27 +12,24 @@ import { NotesService } from 'src/shared/notes.service';
 export class AddEditNoteComponent implements OnInit {
   new: boolean;
   note: Note;
+  @ViewChild('noteForm', {static: false}) noteForm: FormGroup;
 
   constructor(
     private noteService: NotesService,
-    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      if (params.id === 'new') {
-        this.new = true;
-        this.note = new Note();
-      } else {
+      this.note = new Note();
+      this.new = true;
+      setTimeout(() => this.noteForm.reset());
+      if (params.id !== 'new') {
         this.noteService.getNote(params.id).subscribe(note => {
           if (note) {
             this.note = note;
             this.new = false;
-          } else {
-            this.note = new Note();
-            this.new = true;
-          }
+          } 
         }, err => console.log(err));
       }
     })
@@ -39,11 +37,15 @@ export class AddEditNoteComponent implements OnInit {
 
   onSubmit() {
     if (this.new) {
-      this.noteService.addNote(this.note).subscribe(res => {}, err => {
+      this.noteService.addNote(this.note).subscribe(res => {
+        this.noteService.refreshGrid();
+      }, err => {
         console.log(err);
       });
     } else {
-      this.noteService.editNote(this.note).subscribe(res => {}, err => {
+      this.noteService.editNote(this.note).subscribe(res => {
+        this.noteService.refreshGrid();
+      }, err => {
         console.log(err);
       });
     }

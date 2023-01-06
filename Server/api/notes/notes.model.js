@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var notesSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: false
     },
     body: {
         type: String,
