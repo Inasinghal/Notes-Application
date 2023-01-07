@@ -20,7 +20,7 @@ exports.createNote = function (req, res) {
 }
 
 exports.getNotes = function (req, res) {
-    Notes.find({}, function (err, notes) {
+    Notes.find({}, {}, { sort: { updatedAt: -1 } }, function (err, notes) {
         if (err) {
             res.json({
                 error: err
