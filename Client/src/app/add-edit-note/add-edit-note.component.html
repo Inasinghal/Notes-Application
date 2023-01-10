@@ -1,10 +1,11 @@
 <div class="add-edit-main-container">
-    <form *ngIf="note " #noteForm="ngForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="note " [formGroup]="noteForm" (ngSubmit)="onSubmit()">
         <div class="field is-horizontal">
             <div class="field-body">
                 <div class="field">
                     <p class="control">
-                        <input class="input" placeholder="Type your Notes's Title..." name="title" [(ngModel)]="note.title" required type="text">
+                        <input class="input" placeholder="Type your Notes's Title..." formControlName="title"
+                            [(ngModel)]="note.title" required type="text">
                     </p>
                 </div>
             </div>
@@ -12,21 +13,26 @@
         <div class="field is-horizontal">
             <div class="field-body">
                 <div class="field">
-                    <p class="control">
-                        <textarea class="textarea" rows="15" name="body" [(ngModel)]="note.body" required type="textarea"></textarea>
+                    <p class="control" [ngClass]="[(noteForm?.controls?.body.touched && noteForm?.controls?.body.invalid) ? 'invalid' : '']">
+                        <textarea [(froalaModel)]="note.body"
+                             [froalaEditor]="options"
+                            class="textarea" rows="15" formControlName="body" required type="textarea"></textarea>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="field is-grouped is-grouped-right">
+        <div class="field form-footer" [ngClass]="new ? 'justify-content-end' : 'justify-content-between'">
+            <p class="control form-updated-date" *ngIf="!new">
+                <span class="form-updated-text">Last Modified: </span> <span>{{ note.updatedAt | date : 'MMM d, y, h:mm a' }}</span>
+            </p>
             <p class="control">
                 <button type="submit" [disabled]="noteForm.invalid" class="button is-primary">
                     <span class="icon-text">
                         <span>Save</span>
                         <span class="icon">
-                          <i class="fa fa-save"></i>
+                            <i class="fa fa-save"></i>
                         </span>
-                      </span> 
+                    </span>
                 </button>
             </p>
         </div>
