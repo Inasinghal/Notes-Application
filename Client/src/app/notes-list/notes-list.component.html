@@ -2,21 +2,28 @@
   <div class="note-list-container">
     <div class="search-add-container">
       <div class="field">
-        <p class="control has-icons-left">
+        <p class="control has-icons-left has-icons-right">
           <input class="input" [(ngModel)]="searchInput" type="input" placeholder="Filter">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
+          </span>
+          <span  *ngIf= "searchInput.length > 0" class="icon is-small is-right">
+            <button class="delete" (click)="searchInput=''"></button>
           </span>
         </p>
       </div>
       <button class="add-button icon is-primary" routerLink="/new"><i class="fa fa-plus"></i></button>
     </div>
     <div class="note-cards">
-      <app-note-card *ngFor="let note of (notes | searchNote : searchInput)" [note]="note" (deleteNoteEvent)="deleteNote($event)">
-      </app-note-card>
+      <div class="noResultFound" *ngIf="notes.length===0"> Please add your first notes :) </div>
+      <ng-container *ngIf=" notes.length > 0 && (notes | searchNote : searchInput) as result">
+        <app-note-card *ngFor="let note of result" [note]="note" (deleteNoteEvent)="deleteNote($event)">
+        </app-note-card>
+        <div class="noResultFound" *ngIf="result.length===0"> No matching note </div>
+      </ng-container>
     </div>
-  </div>
-  <div class="note-add-edit-main-container">
-    <router-outlet></router-outlet>
-  </div>
+    </div>
+    <div class="note-add-edit-main-container">
+      <router-outlet></router-outlet>
+    </div>
 </div>

@@ -6,10 +6,11 @@ import { NotesListComponent } from './notes-list/notes-list.component';
 
 const routes: Routes = [
   {
-    path: '', component: NotesListComponent, children: 
-    [ 
+    path: '', component: NotesListComponent, children:
+      [
+      { path: '', redirectTo: '/new', pathMatch: 'full' },
       { path: ':id', component: AddEditNoteComponent }
-    ]
+      ]
   }
 ];
 

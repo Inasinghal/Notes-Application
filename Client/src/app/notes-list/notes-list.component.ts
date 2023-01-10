@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Note } from 'src/shared/note.model';
 import { NotesService } from 'src/shared/notes.service';
+import { NotificationService } from 'src/shared/notification.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -13,9 +14,11 @@ export class NotesListComponent implements OnInit {
   notes: Note[] = new Array<Note>();
 
   constructor(private notesService: NotesService,
+    private notification: NotificationService,
     private router: Router) { }
 
   ngOnInit() {
+    this.getAllNotes();
     this.notesService.refreshGridSubject$.subscribe(res => {
       this.getAllNotes();
       this.router.navigate(['/new']);
@@ -30,7 +33,11 @@ export class NotesListComponent implements OnInit {
 
   deleteNote(id: any) {
     this.notesService.deleteNote(id).subscribe(res => {
-      this.getAllNotes();
-    }, err => console.log(err));
+      this.notesService.refreshGrid();
+      this.notification.showSuccess("Note Deleted Successfully !!!");
+    }, err => {
+      console.log(err);
+      this.notification.showError("Something went wrong");
+    });
   }
 }

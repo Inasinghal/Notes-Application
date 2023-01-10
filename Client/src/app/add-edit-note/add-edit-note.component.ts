@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/shared/note.model';
 import { NotesService } from 'src/shared/notes.service';
+import { NotificationService } from 'src/shared/notification.service';
 
 @Component({
   selector: 'app-add-edit-note',
@@ -16,7 +17,8 @@ export class AddEditNoteComponent implements OnInit {
 
   constructor(
     private noteService: NotesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private notifyService : NotificationService
   ) { }
 
   ngOnInit() {
@@ -39,14 +41,20 @@ export class AddEditNoteComponent implements OnInit {
     if (this.new) {
       this.noteService.addNote(this.note).subscribe(res => {
         this.noteService.refreshGrid();
+        this.note = new Note();
+        this.new = true;
+        this.notifyService.showSuccess("Note saved successfully !!");
       }, err => {
         console.log(err);
+        this.notifyService.showError("Something went wrong");
       });
     } else {
       this.noteService.editNote(this.note).subscribe(res => {
         this.noteService.refreshGrid();
+        this.notifyService.showSuccess("Note saved successfully !!");
       }, err => {
         console.log(err);
+        this.notifyService.showError("Something went wrong");
       });
     }
   }

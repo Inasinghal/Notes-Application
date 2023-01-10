@@ -35,6 +35,11 @@
             padding: 1rem;
             max-height: 32rem;
             overflow-y: auto;
+
+            .noResultFound {
+                color: $purple;
+                font-size: 16px;
+            }
         }
     }
     .note-add-edit-main-container {

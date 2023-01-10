@@ -9,6 +9,7 @@ import { AddEditNoteComponent } from './add-edit-note/add-edit-note.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchNotePipe } from './notes-list/search-note.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -24,7 +25,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
