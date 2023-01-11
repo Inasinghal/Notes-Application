@@ -15,7 +15,7 @@
       <button class="add-button icon is-primary" routerLink="/new"><i class="fa fa-plus"></i></button>
     </div>
     <div class="note-cards">
-      <div class="noResultFound" *ngIf="notes.length===0"> Please add your first notes :) </div>
+      <div class="noResultFound" *ngIf="notes.length===0"> Please add your first note :) </div>
       <ng-container *ngIf=" notes.length > 0 && (notes | searchNote : searchInput) as result">
         <app-note-card *ngFor="let note of result" [note]="note" (deleteNoteEvent)="deleteNote($event)">
         </app-note-card>
