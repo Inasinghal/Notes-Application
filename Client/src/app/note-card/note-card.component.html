@@ -1,10 +1,10 @@
 <div class="note-card-container" [routerLink]="['/',note._id]" routerLinkActive="active">
     <div class="note-card-content">
         <div class="note-card-header">
-            <h1>{{ note.title }}</h1>
+            <h1 [innerHTML]="note.title"></h1>
         </div>
         <div #cardBody class="note-card-body">
-            <p #cardContent>{{ note.body }}</p>
+            <p #cardContent [innerHTML]="note.body"></p>
             <div *ngIf="cardContent.clientHeight > cardBody.clientHeight" class="fade-out-content"></div>
         </div>
     </div>
